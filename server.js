@@ -70,6 +70,9 @@ app.get('/logout',(req,res)=>{
     res.cookie('jwt',"",{maxAge:1,httpOnly:true})
     res.redirect('/')
 })
+app.get('/Donation",(req,res)=>{
+        res.render("donations")
+})
 app.post('/food-donation', async (req, res) => {
     const { name, email, mobile, foodType, quantity } = req.body;
     try {
