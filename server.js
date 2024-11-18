@@ -70,13 +70,6 @@ app.get('/logout',(req,res)=>{
     res.cookie('jwt',"",{maxAge:1,httpOnly:true})
     res.redirect('/')
 })
-app.get("/Donation",aysnc(req,res)=>{
-        const u=res.locals.user.email
-        const books=await BookDonation.find({email})
-        const food=await FoodDonation.find({email})
-        const clothes=await ClothDonation.find({email})
-        res.render("donations",{books,food,clothes})
-})
 app.post('/food-donation', async (req, res) => {
     const { name, email, mobile, foodType, quantity } = req.body;
     try {
