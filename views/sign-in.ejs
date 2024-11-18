@@ -26,6 +26,9 @@
     </style>
 </head>
 <body>
+    <% if(signerror){%>
+        <p class="error"><%-signerror%></p>
+    <%}%>
     <div class="container" id="signup">
         <h1 class="form-title">Register</h1>
         <form id="signUpForm" method="post" action="/sign-in">
