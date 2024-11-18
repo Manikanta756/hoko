@@ -58,12 +58,13 @@ app.post("/sign-in", async (req, res) => {
     const { name, last, email, password } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-        return res.render("index1", { signerror: "User already exists" });
+        return res.render("sign-in", { signerror: "User already exists" });
+    }else{
+        const newUser = await User.create({ name, last, email, password });
+        const token = jwt.sign({ id: newUser }, "vamsi", { expiresIn: '1h' });
+        res.cookie('jwt', token, { maxAge: 3600000, httpOnly: true });
+        return res.redirect('/');
     }
-    const newUser = await User.create({ name, last, email, password });
-    const token = jwt.sign({ id: newUser }, "vamsi", { expiresIn: '1h' });
-    res.cookie('jwt', token, { maxAge: 3600000, httpOnly: true });
-    return res.redirect('/');
 });
 app.get('/logout',(req,res)=>{
     res.cookie('jwt',"",{maxAge:1,httpOnly:true})
